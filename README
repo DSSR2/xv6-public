@@ -2,6 +2,12 @@ xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
 Version 6 (v6).  xv6 loosely follows the structure and style of v6,
 but is implemented for a modern x86-based multiprocessor using ANSI C.
 
+
+In this project, I have added a few functionalities to the existing xv6 OS. These features currently include:
+1. Clear command 	- 	cls OR clear. 	[Clears the screen]
+2. Dir command 		- 	ls OR dir.	[Lists the files and directories in the pwd]
+
+
 ACKNOWLEDGMENTS
 
 xv6 is inspired by John Lions's Commentary on UNIX 6th Edition (Peer
