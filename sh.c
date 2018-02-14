@@ -13,6 +13,8 @@
 
 #define MAXARGS 10
 
+int FD;
+
 struct cmd {
   int type;
 };
@@ -144,7 +146,7 @@ getcmd(char *buf, int nbuf)
 int
 runStratingCommands(){
   if(fork1() == 0)
-    runcmd(parsecmd("ln one clear"));
+    runcmd(parsecmd("ln cls clear"));
   wait();
 
   if(fork1() == 0)
@@ -153,11 +155,30 @@ runStratingCommands(){
   return 0;
 }
 
+void
+writeToFile(char *buf){
+  FD=open("cmds", O_RDWR);
+  if(FD >= 0) {
+        printf(1, "ok: create backup file succeed\n");
+    } else {
+        printf(1, "error: create backup file failed\n");
+        exit();
+    }
+    char asd[]="\nads";
+    int size2= sizeof(asd);
+    int size=sizeof(buf);
+    write(FD, buf, size);
+    write(FD, asd, size2);
+}
+
 int
 main(void)
 {
+
   static char buf[100];
   int fd;
+  int FD;
+  FD=open("cmds",O_CREATE);
 
   // Ensure that three file descriptors are open.
   while((fd = open("console", O_RDWR)) >= 0){
@@ -166,7 +187,9 @@ main(void)
       break;
     }
   }
+  close(FD);
   runStratingCommands();
+
   // Read and run input commands.
   while(getcmd(buf, sizeof(buf)) >= 0){
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
@@ -176,10 +199,13 @@ main(void)
         printf(2, "cannot cd %s\n", buf+3);
       continue;
     }
-    if(fork1() == 0)
+    if(fork1() == 0){
+      writeToFile(buf);
       runcmd(parsecmd(buf));
+    }
     wait();
   }
+  close(FD);
   exit();
 }
 
