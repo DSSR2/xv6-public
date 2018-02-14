@@ -141,6 +141,10 @@ cgaputc(int c)
 
   if(c == '\n')
     pos += 80 - pos%80;
+  else if(c == '\f'){
+    pos = 1;
+    memset(crt, 0, sizeof(crt[0])*(24*80));
+  }
   else if(c == BACKSPACE){
     if(pos > 0) --pos;
   } else
@@ -296,4 +300,3 @@ consoleinit(void)
 
   ioapicenable(IRQ_KBD, 0);
 }
-

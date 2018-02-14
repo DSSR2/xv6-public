@@ -142,6 +142,18 @@ getcmd(char *buf, int nbuf)
 }
 
 int
+runStratingCommands(){
+  if(fork1() == 0)
+    runcmd(parsecmd("ln one clear"));
+  wait();
+
+  if(fork1() == 0)
+    runcmd(parsecmd("ln ls dir"));
+  wait();
+  return 0;
+}
+
+int
 main(void)
 {
   static char buf[100];
@@ -154,7 +166,7 @@ main(void)
       break;
     }
   }
-
+  runStratingCommands();
   // Read and run input commands.
   while(getcmd(buf, sizeof(buf)) >= 0){
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
