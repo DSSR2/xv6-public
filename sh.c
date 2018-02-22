@@ -155,20 +155,24 @@ runStratingCommands(){
   return 0;
 }
 
+int
+seek(int f){
+  char buff[512];
+  while(read(f, buff, 512)){
+
+  }
+  return 0;
+}
+
 void
 writeToFile(char *buf){
   FD=open("cmds", O_RDWR);
-  if(FD >= 0) {
-        printf(1, "ok: create backup file succeed\n");
-    } else {
-        printf(1, "error: create backup file failed\n");
-        exit();
-    }
-    char asd[]="\nads";
-    int size2= sizeof(asd);
-    int size=sizeof(buf);
-    write(FD, buf, size);
-    write(FD, asd, size2);
+  seek(FD);
+  char newLine[1];
+  newLine[0]='\n';
+  int size=strlen(buf);
+  write(FD, buf, size);
+  write(FD, newLine, sizeof(newLine));
 }
 
 int
