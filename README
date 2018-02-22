@@ -4,9 +4,9 @@ but is implemented for a modern x86-based multiprocessor using ANSI C.
 
 
 In this project, I have added a few functionalities to the existing xv6 OS. These features currently include:
-1. Clear command 	- 	cls OR clear. 	[Clears the screen]
-2. Dir command 		- 	ls OR dir.	[Lists the files and directories in the pwd]
-
+1. Clear command 	- 	cls OR clear 	[Clears the screen]
+2. Dir command 		- 	ls OR dir	    [Lists the files and directories in the pwd]
+3. Boxsay command   -   boxsay <text>   [Displays the text in a box!]
 
 ACKNOWLEDGMENTS
 
